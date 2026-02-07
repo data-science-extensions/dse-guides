@@ -1,6 +1,7 @@
 ### User Defined ###
 .vscode/
 uv.lock
+git_output/
 .github/copilot-instructions.md
 .github/instructions/*
 .github/prompts/*
