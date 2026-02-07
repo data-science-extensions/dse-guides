@@ -1,8 +1,14 @@
+### User Defined ###
+.vscode/
+uv.lock
+.github/copilot-instructions.md
+.github/instructions/*
+.github/prompts/*
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[codz]
 *$py.class
-uv.lock
 
 # C extensions
 *.so
