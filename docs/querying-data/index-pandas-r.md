@@ -5,11 +5,11 @@
 
 If you wanted to run the code yourself, you can download just that Jupyter notebook:
 
-[![][dse-icon]{width=70px}<br>Download<br>- ALL](./index-r.ipynb){ :download .md-button .md-button-fifth }
-[![][pandas-icon]{width=100%}<br>Download<br>- Pandas](./index-pandas-r.ipynb){ :download .md-button .md-button-fifth }
-[![][sql-icon]{width=100%}<br>Download<br>- SQL](./index-sql-r.ipynb){ :download .md-button .md-button-fifth }
-[![][spark-icon]{width=100%}<br>Download<br>- PySpark](./index-pyspark-r.ipynb){ :download .md-button .md-button-fifth }
-[![][polars-icon]{width=100%}<br>Download<br>- Polars](./index-polars-r.ipynb){ :download .md-button .md-button-fifth }
+[![][dse-icon]{width=70px}<br>Download<br>- ALL][all-notebook]{ :download .md-button .md-button-fifth }
+[![][pandas-icon]{width=100%}<br>Download<br>- Pandas][pandas-notebook]{ :download .md-button .md-button-fifth }
+[![][sql-icon]{width=100%}<br>Download<br>- SQL][sql-notebook]{ :download .md-button .md-button-fifth }
+[![][spark-icon]{width=100%}<br>Download<br>- PySpark][spark-notebook]{ :download .md-button .md-button-fifth }
+[![][polars-icon]{width=100%}<br>Download<br>- Polars][polars-notebook]{ :download .md-button .md-button-fifth }
 
 Or you can follow along on this page...
 
@@ -748,7 +748,7 @@ We can also calculate the percentage change in sales using the [`.pct_change()`]
 ((value_current_row - value_previous_row) / value_previous_row)
 ```
 
-So therefore we need to multiple the result by `100`.
+So therefore we need to multiply the result by `100`.
 
 ```python {.pandas linenums="1" title="Calculate day-over-day change"}
 daily_sales_pd["day_over_day_change"] = daily_sales_pd["total_sales"] - daily_sales_pd["previous_day_sales"]
@@ -1074,6 +1074,11 @@ Continue practicing with real datasets, explore advanced features of each tool, 
 [sql-icon]: https://raw.githubusercontent.com/data-science-extensions/dse-guides/main/docs/assets/icons/sql.svg
 [spark-icon]: https://raw.githubusercontent.com/data-science-extensions/dse-guides/main/docs/assets/icons/spark.svg
 [polars-icon]: https://raw.githubusercontent.com/data-science-extensions/dse-guides/main/docs/assets/icons/polars.svg
+[all-notebook]: https://raw.githubusercontent.com/data-science-extensions/dse-guides/main/docs/querying-data/index-r.ipynb
+[pandas-notebook]: https://raw.githubusercontent.com/data-science-extensions/dse-guides/main/docs/querying-data/index-pandas-r.ipynb
+[sql-notebook]: https://raw.githubusercontent.com/data-science-extensions/dse-guides/main/docs/querying-data/index-sql-r.ipynb
+[spark-notebook]: https://raw.githubusercontent.com/data-science-extensions/dse-guides/main/docs/querying-data/index-pyspark-r.ipynb
+[polars-notebook]: https://raw.githubusercontent.com/data-science-extensions/dse-guides/main/docs/querying-data/index-polars-r.ipynb
 
 
 <!-- Python -->

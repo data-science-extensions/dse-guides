@@ -1761,7 +1761,7 @@ Having aggregated the data, we can now visualize the results using [Plotly][plot
 
     <div class="result" markdown>
 
-    --8<-- "https://raw.githubusercontent.com/data-science-extensions/dse-guides/main/docs/querying-data/images/pt2_total_sales_by_category_pd.html>
+    --8<-- "https://raw.githubusercontent.com/data-science-extensions/dse-guides/main/docs/querying-data/images/pt2_total_sales_by_category_pd.html"
 
     </div>
 
