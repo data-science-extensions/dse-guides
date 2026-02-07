@@ -9,7 +9,7 @@ import subprocess
 import sys
 from pathlib import Path
 from textwrap import dedent
-from typing import Literal, LiteralString, Union
+from typing import Literal, LiteralString, Optional, Union
 
 
 ## --------------------------------------------------------------------------- #
@@ -33,13 +33,14 @@ UV_CONSTANTS: list[str] = [
 
 
 def expand_space(lst: Union[list[str], tuple[str, ...]]) -> list[str]:
-    return [item for element in lst for item in element.split()]
+    if len(lst) == 1 and isinstance(lst[0], str):
+        return [item for item in lst[0].split()]
+    return list(lst)
 
 
 def run_command(*command, expand: bool = True) -> None:
     _command: list[str] = expand_space(command) if expand else list(command)
     print("\n", " ".join(_command), sep="", flush=True)
-    # subprocess.run(UV_CONSTANTS + _command, check=True, encoding="utf-8")
     subprocess.run(_command, check=True, encoding="utf-8")
 
 
@@ -218,7 +219,7 @@ def docs_build_versioned_cli() -> None:
     if len(sys.argv) < 2:
         print("Requires argument: <version>")
         sys.exit(1)
-    docs_build_versioned(sys.argv[2])
+    docs_build_versioned(sys.argv[1])
 
 
 def update_git_docs(version: str) -> None:
@@ -231,7 +232,7 @@ def update_git_docs_cli() -> None:
     if len(sys.argv) < 2:
         print("Requires argument: <version>")
         sys.exit(1)
-    update_git_docs(sys.argv[2])
+    update_git_docs(sys.argv[1])
 
 
 def docs_check_versions() -> None:
@@ -246,7 +247,7 @@ def docs_delete_version_cli() -> None:
     if len(sys.argv) < 2:
         print("Requires argument: <version>")
         sys.exit(1)
-    docs_delete_version(sys.argv[2])
+    docs_delete_version(sys.argv[1])
 
 
 def docs_set_default() -> None:
@@ -262,7 +263,7 @@ def build_static_docs_cli() -> None:
     if len(sys.argv) < 2:
         print("Requires argument: <version>")
         sys.exit(1)
-    build_static_docs(sys.argv[2])
+    build_static_docs(sys.argv[1])
 
 
 def build_versioned_docs(version: str) -> None:
@@ -274,7 +275,7 @@ def build_versioned_docs_cli() -> None:
     if len(sys.argv) < 2:
         print("Requires argument: <version>")
         sys.exit(1)
-    build_versioned_docs(sys.argv[2])
+    build_versioned_docs(sys.argv[1])
 
 
 ## --------------------------------------------------------------------------- #
@@ -285,6 +286,7 @@ def build_versioned_docs_cli() -> None:
 def extract_sections_from_markdown_file(
     file_path: str,
     section_name: Literal["pandas", "sql", "pyspark", "polars"],
+    write_path: Optional[str] = None,
 ) -> None:
     """
     Summary:
@@ -378,15 +380,21 @@ def extract_sections_from_markdown_file(
 
     # Create output file path with section name as suffix
     file_stem: str = file.stem
-    file_suffix = file.suffix
-    output_file: Path = file.with_name(
-        f"{file_stem}-{section_name.lower()}{file_suffix}"
-    )
+    full_path: Path = file.resolve().parent
+    file_suffix: str = file.suffix
+
+    if write_path:
+        output_dir: Path = full_path.joinpath(write_path)
+        output_dir.mkdir(parents=True, exist_ok=True)
+        output_file: Path = output_dir.joinpath(f"{file_stem}-{section_name.lower()}{file_suffix}")
+    else:
+        output_file: Path = full_path.joinpath(f"{file_stem}-{section_name.lower()}{file_suffix}")
 
     # Write the result (overwrite if exists)
     with open(output_file, "w", encoding="utf-8") as f:
         f.write(result_content)
 
+    # Check
     print(f"Extracted '{section_name}' sections written to: {output_file}")
     print(
         f"Kept {len(kept_sections)} section(s), removed {len(matches) - len(kept_sections)} section(s)"
@@ -400,6 +408,7 @@ def extract_sections_from_markdown_file_cli() -> None:
 
     file_path: str = sys.argv[1]
     section_name: Literal["pandas", "sql", "pyspark", "polars"] = sys.argv[2]
+    write_path: Optional[str] = sys.argv[3] if len(sys.argv) > 3 else None
 
     # Validate section name
     valid_sections: list[str] = ["pandas", "sql", "pyspark", "polars"]
@@ -409,12 +418,13 @@ def extract_sections_from_markdown_file_cli() -> None:
         )
         sys.exit(1)
 
-    extract_sections_from_markdown_file(file_path, section_name)
+    extract_sections_from_markdown_file(file_path, section_name, write_path)
 
 
 def reformat_file(
     file_path: str,
     replace_tab_with_header: Literal["##", "###", "####", "h2", "h3", "h4"] = "h3",
+    write_path: Optional[str] = None,
 ) -> str | None:
     """
     Summary:
@@ -451,9 +461,16 @@ def reformat_file(
         return
 
     # Create output file path
+    full_path: Path = file.resolve().parent  # Get directory of the file
     file_stem: str = file.stem  # Get filename without extension
     file_suffix: str = file.suffix  # Get file extension
-    output_file: Path = file.with_name(f"{file_stem}-r{file_suffix}")
+
+    if write_path:
+        output_dir: Path = full_path.joinpath(write_path)
+        output_dir.mkdir(parents=True, exist_ok=True)
+        output_file: Path = output_dir.joinpath(f"{file_stem}-r{file_suffix}")
+    else:
+        output_file: Path = full_path.joinpath(f"{file_stem}-r{file_suffix}")
 
     # Fix linting before converting
     run("blacken-docs", "--line-length=120", "--skip-errors", file_path)
@@ -519,12 +536,14 @@ def reformat_file(
 
 def reformat_file_cli() -> None:
     if len(sys.argv) < 2:
-        print("Usage: reformat-file <file_path>")
+        print("Usage: reformat-file <file_path> [header_level] [write_path]")
         sys.exit(1)
-    if sys.argv[2]:
-        reformat_file(sys.argv[1], sys.argv[2])
-    else:
-        reformat_file(sys.argv[1])
+
+    file_path: str = sys.argv[1]
+    replace_tab_with_header = sys.argv[2] if len(sys.argv) > 2 else "h3"
+    write_path: Optional[str] = sys.argv[3] if len(sys.argv) > 3 else None
+
+    reformat_file(file_path, replace_tab_with_header, write_path)
 
 
 def convert_markdown_to_notebook(input_file_path: str) -> str | None:
@@ -580,24 +599,30 @@ def convert_markdown_to_notebook_cli() -> None:
     if len(sys.argv) < 2:
         print("Usage: convert-markdown-to-notebook <file_path>")
         sys.exit(1)
-    convert_markdown_to_notebook(sys.argv[1])
+    convert_markdown_to_notebook(input_file_path=sys.argv[1])
 
 
 def format_and_convert(
     file_path: str,
     replace_tab_with_header: Literal["##", "###", "####", "h2", "h3", "h4"] = "h3",
+    write_path: Optional[str] = None,
 ) -> None:
-    reformatted_file: str = reformat_file(
-        file_path=file_path, replace_tab_with_header=replace_tab_with_header
+    reformatted_file: str | None = reformat_file(
+        file_path=file_path, replace_tab_with_header=replace_tab_with_header, write_path=write_path
     )
-    convert_markdown_to_notebook(reformatted_file)
+    if reformatted_file:
+        convert_markdown_to_notebook(input_file_path=reformatted_file)
+    else:
+        print(f"Skipping conversion for {file_path} because reformatting failed or file was not found.")
 
 
 def format_and_convert_cli() -> None:
     if len(sys.argv) < 2:
-        print("Usage: format-and-convert <file_path>")
+        print("Usage: format-and-convert <file_path> [header_level] [write_path]")
         sys.exit(1)
-    if sys.argv[2]:
-        format_and_convert(sys.argv[1], sys.argv[2])
-    else:
-        format_and_convert(sys.argv[1])
+
+    file_path: str = sys.argv[1]
+    replace_tab_with_header = sys.argv[2] if len(sys.argv) > 2 else "h3"
+    write_path: Optional[str] = sys.argv[3] if len(sys.argv) > 3 else None
+
+    format_and_convert(file_path=file_path, replace_tab_with_header=replace_tab_with_header, write_path=write_path)
