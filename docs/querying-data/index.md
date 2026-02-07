@@ -2782,7 +2782,7 @@ Now, we can calculate the day-over-day change in sales. This is done by subtract
     ((value_current_row - value_previous_row) / value_previous_row)
     ```
 
-    So therefore we need to multiple the result by `100`.
+    So therefore we need to multiply the result by `100`.
 
     ```py {.pandas linenums="1" title="Calculate day-over-day change"}
     daily_sales_pd["day_over_day_change"] = daily_sales_pd["total_sales"] - daily_sales_pd["previous_day_sales"]
