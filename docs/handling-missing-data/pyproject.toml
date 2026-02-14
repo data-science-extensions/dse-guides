@@ -1,0 +1,97 @@
+[project]
+name = "handling-missing-data"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = "==3.13.*"
+dependencies = [
+    "numpy==2.*",
+    "pandas==2.*",
+    "plotly==6.*",
+    "pmdarima==2.*,!=2.1.0",
+    "scikit-learn==1.*",
+    "synthetic-data-generators==1.*",
+    "tabulate==0.*",  # <-- Used to render pandas tables to markdown
+    "tqdm==4.*",  # <-- Used to show progress bars for long operations
+    "tensorflow==2.*",
+]
+
+[dependency-groups]
+dev = [
+    "black==25.*",
+    "blacken-docs==1.*",
+    "codespell==2.*",
+    "ipykernel==7.*",
+    "isort==7.*",
+    "pre-commit==4.*",
+    "pycln==2.*",
+    "pylint==4.*",
+    "pyupgrade==3.*",
+]
+docs = [
+    "black==25.*",
+    "docstring-inheritance==2.*",
+    "livereload==2.*",
+    "mike==2.*",
+    "mkdocs==1.*",
+    "mkdocs-autorefs==1.*",
+    "mkdocs-coverage==2.*",
+    "mkdocs-material==9.*",
+    "mkdocstrings==0.*",
+    "mkdocstrings-python==1.*",
+    "jupytext==1.*",  # <-- Used to convert notebooks to markdown
+]
+
+[project.urls]
+Homepage = "https://data-science-extensions.com"
+Documentation = "https://data-science-extensions.com/latest/guides/handling-missing-data/"
+Repository = "https://github.com/data-science-extensions/dse-guides"
+
+[project.scripts]
+docs-serve-static = "cli.scripts:docs_serve_static"
+lint = "cli.scripts:lint"
+check = "cli.scripts:check"
+lint-check = "cli.scripts:lint_check"
+sync = "cli.scripts:uv_sync"
+check-pytest = "cli.scripts:check_pytest"
+reformat-file = "cli.scripts:reformat_file_cli"
+convert-md-to-ipynb = "cli.scripts:convert_markdown_to_notebook_cli"
+reformat-and-convert-md-to-ipynb = "cli.scripts:format_and_convert_cli"
+extract-sections-from-markdown-file = "cli.scripts:extract_sections_from_markdown_file_cli"
+
+[tool.black]
+color = true
+line-length = 120
+exclude = '''
+/(
+    \.git
+    | \.hg
+    | \.mypy_cache
+    | \.tox
+    | \.venv
+    | _build
+    | buck-out
+    | build
+    | dist
+    | env
+    | venv
+)/
+'''
+
+[tool.codespell]
+ignore-words-list = "demog,mape"
+
+[tool.isort]
+import_heading_future = "Future Library Imports"
+import_heading_stdlib = "StdLib Imports"
+import_heading_thirdparty = "Third Party Imports"
+import_heading_firstparty = "Local First Party Imports"
+import_heading_localfolder = "Local Module Imports"
+profile = "black"
+split_on_trailing_comma = true
+combine_as_imports = true
+lines_after_imports = 2
+
+[build-system]
+requires = ["uv_build>=0.9.5,<0.10.0"]
+build-backend = "uv_build"
