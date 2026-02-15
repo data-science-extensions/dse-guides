@@ -34,6 +34,8 @@
 TODO
 
 
+## **Part 1:** Causes / Reasons
+
 Here are some common reasons for missing data in time series:
 
 | Reason          | Comment                                                                                     |            Score            |
@@ -412,7 +414,7 @@ Before we begin, it is necessary to set up our environment and create a sample d
     --8<-- "https://raw.githubusercontent.com/data-science-extensions/dse-guides/main/docs/handling-missing-data/images/00_seasonal_data_with_missing.html"
 
 
-## Interpolation / Extrapolation
+## **Part 2:** Interpolation / Extrapolation
 
 Interpolation and extrapolation are techniques used to estimate missing values in a time series data set. Interpolation is used to fill in missing values within the range of existing data, while extrapolation is used to estimate values outside the range of existing data.
 
@@ -648,7 +650,7 @@ Interpolation and extrapolation are techniques used to estimate missing values i
 --8<-- "https://raw.githubusercontent.com/data-science-extensions/dse-guides/main/docs/handling-missing-data/images/00_extrapolation.html"
 
 
-## Dealing with Missing Data
+## **Part 3:** Dealing with Missing Data
 
 
 ### Dropping
