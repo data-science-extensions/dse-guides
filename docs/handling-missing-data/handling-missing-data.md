@@ -1,13 +1,16 @@
 # Handling Missing Time Series Data
 
 <style>
-    table td {
+    table tr td {
         vertical-align: middle;
         position: relative;
     }
-    table td p {
+    table tr td p {
         display: inline-block;
         vertical-align: middle;
+    }
+    table th {
+        text-align: center !important;
     }
     .center {
         text-align: center;
@@ -19,6 +22,9 @@
     }
     .green {
         background-color: rgba(144, 238, 144, 0.2);
+    }
+    .red {
+        background-color: rgba(255, 99, 71, 0.2);
     }
 </style>
 
