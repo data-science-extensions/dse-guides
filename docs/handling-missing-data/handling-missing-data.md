@@ -205,9 +205,9 @@ Mechanisms/examples:
 
 ### Set up
 
-Before we begin, it is necessary to set up our environment and create a sample data set with missing values. Click on "Show code" to see the full code for all sections on this page. Click "No code" at any time to hide the code.
+Before we begin, it is necessary to set up our environment and create a sample data set with missing values. Click on "Show code" to see the full code for all sections on this page. Click "Hide code" at any time to hide the code.
 
-=== "No code"
+=== "Hide code"
 
 === "Show code"
 
@@ -428,6 +428,8 @@ Interpolation and extrapolation are techniques used to estimate missing values i
 
 Under certain assumptions (e.g. the true but unknown function is continuous or differentiable) it is mathematically proven that the interpolation gets better and better with increasing polynomial degree and density of known nodes (proven to converge)
 
+=== "Hide code"
+
 === "Show code"
 
     ```python
@@ -548,7 +550,7 @@ Under certain assumptions (e.g. the true but unknown function is continuous or d
 - In other words extrapolation is "guessing"
 - This is why trend extrapolation in forecasting is always a delicate/shaky thing and requires external assumptions on future trend behaviour
 
-=== "No code"
+=== "Hide code"
 
 === "Show code"
 
@@ -882,7 +884,7 @@ When to use:
 </table>
 
 
-=== "No code"
+=== "Hide code"
 
 === "Show code"
 
@@ -981,7 +983,7 @@ When to use:
 </table>
 
 
-=== "No code"
+=== "Hide code"
 
 === "Show code"
 
@@ -1074,7 +1076,7 @@ When to use:
 </table>
 
 
-=== "No code"
+=== "Hide code"
 
 === "Show code"
 
@@ -1172,7 +1174,7 @@ When to use:
 </table>
 
 
-=== "No code"
+=== "Hide code"
 
 === "Show code"
 
@@ -1264,7 +1266,7 @@ When to use:
 </table>
 
 
-=== "No code"
+=== "Hide code"
 
 === "Show code"
 
@@ -1375,7 +1377,7 @@ Classical ML algorithms like Random Forest, XGBoost, or Linear Regression treat 
 </table>
 
 
-=== "No code"
+=== "Hide code"
 
 === "Show code"
 
@@ -1404,7 +1406,7 @@ Classical ML algorithms like Random Forest, XGBoost, or Linear Regression treat 
 
 #### One at a Time
 
-=== "No code"
+=== "Hide code"
 
 === "Show code"
 
@@ -1472,7 +1474,7 @@ Classical ML algorithms like Random Forest, XGBoost, or Linear Regression treat 
 
 #### All at Once
 
-=== "No code"
+=== "Hide code"
 
 === "Show code"
 
@@ -1603,7 +1605,7 @@ When to use:
 </table>
 
 
-=== "No code"
+=== "Hide code"
 
 === "Show code"
 
