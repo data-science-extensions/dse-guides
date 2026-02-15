@@ -220,7 +220,7 @@ Before we begin, it is necessary to set up our environment and create a sample d
     - [`sklearn`][`sklearn`] for machine learning models
     - [`tqdm`][`tqdm`] for progress bars
 
-    ```python
+    ```python {.py .python linenums="1" title="Set up"}
     # StdLib Imports
     import warnings
     from datetime import datetime
@@ -242,7 +242,7 @@ Before we begin, it is necessary to set up our environment and create a sample d
 
     After importing the necessary libraries, we can set up some global settings which will be used throughout the guide. This includes setting a random seed for reproducibility (`RANDOM_SEED`), defining the number of periods for our time series data (`NUM_PERIODS`), and configuring Plotly's default template for visualizations (`pio.templates.default`). We also instantiate the `TimeSeriesGenerator()` class, assigning a constant seed for reproducibility (`TSG`). Additionally, we will suppress certain warnings to keep the output clean.
 
-    ```python
+    ```python {.py .python linenums="1" title="Global settings and constants"}
     # Constants, Settings, Instantiations
     RANDOM_SEED = 42
     NUM_PERIODS = 1096
@@ -257,7 +257,7 @@ Before we begin, it is necessary to set up our environment and create a sample d
 
     In this guide, we will constantly be plotting our data to visualise the effects of missing data handling techniques. Therefore, we define a single helper function `plot_data()` that we can reuse for convenience and consistent formatting. It takes in a DataFrame and various parameters to create a line plot comparing the original data with missing values and the filled data. The function also allows for customization of titles, subtitles, output file saving, and whether to show or return the figure.
 
-    ```python
+    ```python {.py .python linenums="1" title="Helper function for plotting"}
     def plot_data(
         data: pd.DataFrame,
         date_col: str,
@@ -322,7 +322,7 @@ Before we begin, it is necessary to set up our environment and create a sample d
 
     Now that we have our environment set up, we can create a sample time series data set with missing values. We will generate seasonal data with a yearly seasonality pattern and then randomly remove 50% of the data points to simulate missing data.
 
-    ```python
+    ```python {.py .python linenums="1" title="Create sample data with missing values"}
     # Set data parameters
     start_date = datetime(2023, 1, 1)
     NUM_PERIODS = 365
@@ -370,7 +370,7 @@ Before we begin, it is necessary to set up our environment and create a sample d
 
     When we inspect the generated data, we can see the number of missing values in the "Missing" column and a preview of the first 10 rows.
 
-    ```python
+    ```python {.py .python linenums="1" title="Check data"}
     # Check data
     print(data.isna().sum().to_frame("Num Missing").to_markdown())
     print(data.head(10).to_markdown())
@@ -398,7 +398,7 @@ Before we begin, it is necessary to set up our environment and create a sample d
 
     We can also visualise the data using our `plot_data()` function, which shows the seasonal pattern along with the missing data points.
 
-    ```python
+    ```python {.py .python linenums="1" title="Plot data"}
     # Plot data
     plot_data(
         data=data,
@@ -432,7 +432,7 @@ Under certain assumptions (e.g. the true but unknown function is continuous or d
 
 === "Show code"
 
-    ```python
+    ```python {.py .python linenums="1" title="Interpolation example"}
     dat = pd.DataFrame(
         {
             "time": [1, 2, 3, 4, 5, 6],
@@ -554,7 +554,7 @@ Under certain assumptions (e.g. the true but unknown function is continuous or d
 
 === "Show code"
 
-    ```py
+    ```python {.py .python linenums="1" title="Extrapolation example"}
     dat = pd.DataFrame(
         {
             "time": [1, 2, 3, 4, 5, 5],
@@ -888,7 +888,7 @@ When to use:
 
 === "Show code"
 
-    ```python
+    ```python {.py .python linenums="1" title="Filling using random distribution"}
     ### Do fill ----
     nml: np.ndarray = np.random.default_rng(seed=42).normal(
         loc=data["Missing"].mean(),
@@ -904,7 +904,7 @@ When to use:
     )
     ```
 
-    ```python
+    ```python {.py .python linenums="1" title="Plot data after filling"}
     ### Plot data ----
     score_random: float = mape(data_random[["Value"]], data_random[["Fill"]]) * 100
     plot_data(
@@ -987,14 +987,14 @@ When to use:
 
 === "Show code"
 
-    ```python
+    ```python {.py .python linenums="1" title="Filling using feed-forward"}
     ### Do fill ----
     data_ffill: pd.DataFrame = data.assign(
         Fill=lambda df: df["Missing"].ffill(),
     )
     ```
 
-    ```python
+    ```python {.py .python linenums="1" title="Plot data after filling"}
     ### Plot data ----
     score_ffill: float = mape(data_ffill[["Value"]], data_ffill[["Fill"]]) * 100
     plot_data(
@@ -1080,7 +1080,7 @@ When to use:
 
 === "Show code"
 
-    ```python
+    ```python {.py .python linenums="1" title="Filling using imputation"}
     ### Do fill ----
     data_stats: pd.DataFrame = data.assign(
         Fill=lambda df: np.where(
@@ -1091,7 +1091,7 @@ When to use:
     )
     ```
 
-    ```python
+    ```python {.py .python linenums="1" title="Plot data after filling"}
     ### Plot data ----
     score_stats: float = mape(data_stats[["Value"]], data_stats[["Fill"]]) * 100
     plot_data(
@@ -1178,14 +1178,14 @@ When to use:
 
 === "Show code"
 
-    ```python
+    ```python {.py .python linenums="1" title="Filling using interpolation"}
     ### Do fill ----
     data_interpolation: pd.DataFrame = data.assign(
         Fill=lambda df: df["Missing"].interpolate(),
     )
     ```
 
-    ```python
+    ```python {.py .python linenums="1" title="Plot data after filling"}
     ### Plot data ----
     score_interpolation: float = mape(data_interpolation[["Value"]], data_interpolation[["Fill"]]) * 100
     plot_data(
@@ -1270,7 +1270,7 @@ When to use:
 
 === "Show code"
 
-    ```python
+    ```python {.py .python linenums="1" title="Filling using time-series forecasting"}
     ### Do fill ----
     data_forecast: pd.DataFrame = data.copy().assign(Fill=data["Missing"])
     indexes_of_missing: list[int] = data_forecast[data_forecast["Fill"].isna()].index.to_list()
@@ -1288,7 +1288,7 @@ When to use:
         data_forecast.loc[idx, "Fill"] = fcst[0]
     ```
 
-    ```python
+    ```python {.py .python linenums="1" title="Plot data after filling"}
     ### Plot data ----
     score_forecast: float = mape(data_forecast["Value"], data_forecast["Fill"]) * 100
     plot_data(
@@ -1381,7 +1381,7 @@ Classical ML algorithms like Random Forest, XGBoost, or Linear Regression treat 
 
 === "Show code"
 
-    ```python
+    ```python {.py .python linenums="1" title="Helper functions for algorithmic filling"}
     def build_temporal_features(df: pd.DataFrame) -> pd.DataFrame:
         assert "Date" in df.columns, "DataFrame must contain 'Date' column"
         tmp: pd.DataFrame = df.copy()
@@ -1410,7 +1410,7 @@ Classical ML algorithms like Random Forest, XGBoost, or Linear Regression treat 
 
 === "Show code"
 
-    ```python
+    ```python {.py .python linenums="1" title="Filling using machine learning, one record at a time"}
     ### Do fill, one record at a time ----
 
     # Partially create RandomForestRegressor
@@ -1455,7 +1455,7 @@ Classical ML algorithms like Random Forest, XGBoost, or Linear Regression treat 
         data_algorithmic_1.loc[idx, "Fill"] = pred
     ```
 
-    ```python
+    ```python {.py .python linenums="1" title="Plot data after filling"}
     ### Plot data ----
     score_algorithmic_1: float = mape(data_algorithmic_1["Value"], data_algorithmic_1["Fill"]) * 100
     plot_data(
@@ -1478,7 +1478,7 @@ Classical ML algorithms like Random Forest, XGBoost, or Linear Regression treat 
 
 === "Show code"
 
-    ```python
+    ```python {.py .python linenums="1" title="Filling using machine learning, all at once"}
     ### Do fill, all at once ----
 
     # Reassign dataframe
@@ -1519,7 +1519,7 @@ Classical ML algorithms like Random Forest, XGBoost, or Linear Regression treat 
     data_algorithmic_2.loc[indexes_of_missing, "Fill"] = pred
     ```
 
-    ```python
+    ```python {.py .python linenums="1" title="Plot data after filling"}
     ### Plot data ----
     score_algorithmic_2: float = mape(data_algorithmic_2["Value"], data_algorithmic_2["Fill"]) * 100
     plot_data(
@@ -1609,7 +1609,7 @@ When to use:
 
 === "Show code"
 
-    ```python
+    ```python {.py .python linenums="1" title="Filling using autoencoder embedding"}
     ### Do fill using Autoencoder ----
     import tensorflow as tf
     from tensorflow.keras.models import Model
