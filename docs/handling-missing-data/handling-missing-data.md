@@ -77,8 +77,8 @@ Mechanisms/examples:
                 <tr><td>2023-01-10</td><td>11.4</td><td>21.9</td><td>1.0</td></tr>
             </table>
         </td>
-        <td class="center">
-            Completely<br>random<br>➡️
+        <td>
+            <div class="center"><br><br>Completely<br>random<br>➡️</div>
         </td>
         <td>
             <div class="center"><b>Result</b></div>
@@ -127,7 +127,7 @@ Mechanisms/examples:
             </table>
         </td>
         <td>
-            <div class="center">y-values above<br>10.0 have a 50%<br>chance of not<br>being reported<br>➡️</div>
+            <div class="center"><br><br>y-values above<br>10.0 have a 50%<br>chance of not<br>being reported<br>➡️</div>
         </td>
         <td>
             <div class="center"><b>Result</b></div>
@@ -181,7 +181,7 @@ Mechanisms/examples:
             </table>
         </td>
         <td>
-            <div class="center">Some system<br>issues causes<br>values above 11.0<br>to not be reported<br>➡️</div>
+            <div class="center"><br><br>Some system<br>issues causes<br>values above<br>11.0 to not<br>be reported<br>➡️</div>
         </td>
         <td>
             <div class="center"><b>Result</b></div>
@@ -693,7 +693,7 @@ When to use:
             </table>
         </td>
         <td>
-            <div class="center">Dropping the first<br>three rows<br>➡️</div>
+            <div class="center"><br><br>Dropping the first<br>three rows<br>➡️</div>
         </td>
         <td>
             <div class="center"><b>Result</b></div>
@@ -733,7 +733,7 @@ When to use:
             </table>
         </td>
         <td>
-            <div class="center">Dropping the last<br>column <b>x2</b></b><br>➡️</div>
+            <div class="center"><br><br>Dropping the last<br>column <b>x2</b></b><br>➡️</div>
         </td>
         <td>
             <div class="center"><b>Result</b></div>
@@ -796,7 +796,7 @@ When to use:
             </table>
         </td>
         <td>
-            <div class="center">Something<br>➡️</div>
+            <div class="center"><br><br>Recording missing<br>values as binary indicator features<br>➡️</div>
         </td>
         <td>
             <div class="center"><b>Result</b></div>
@@ -860,7 +860,7 @@ When to use:
             </table>
         </td>
         <td>
-            <div class="center">Something</b><br>➡️</div>
+            <div class="center"><br><br>Filling missing values<br>using a random<br>distribution<br>➡️</div>
         </td>
         <td>
             <div class="center"><b>Result</b></div>
@@ -959,7 +959,7 @@ When to use:
             </table>
         </td>
         <td>
-            <div class="center">Something</b><br>➡️</div>
+            <div class="center"><br><br>Propagating the last<br>known value forward<br>➡️</div>
         </td>
         <td>
             <div class="center"><b>Result</b></div>
@@ -1052,7 +1052,7 @@ When to use:
             </table>
         </td>
         <td>
-            <div class="center">Something</b><br>➡️</div>
+            <div class="center"><br><br>Replacing missing<br>values with the<br>column average ($\sigma$)<br>➡️</div>
         </td>
         <td>
             <div class="center"><b>Result</b></div>
@@ -1150,7 +1150,7 @@ When to use:
             </table>
         </td>
         <td>
-            <div class="center">Something</b><br>➡️</div>
+            <div class="center"><br><br>Drawing a straight<br>line between<br>known values<br>➡️</div>
         </td>
         <td>
             <div class="center"><b>Result</b></div>
@@ -1242,7 +1242,7 @@ When to use:
             </table>
         </td>
         <td>
-            <div class="center">Something</b><br>➡️</div>
+            <div class="center"><br><br>Predicting missing<br>values using a<br>time-series model<br>(ARIMA)<br>➡️</div>
         </td>
         <td>
             <div class="center"><b>Result</b></div>
@@ -1353,7 +1353,7 @@ Classical ML algorithms like Random Forest, XGBoost, or Linear Regression treat 
             </table>
         </td>
         <td>
-            <div class="center">Something</b><br>➡️</div>
+            <div class="center"><br><br>Predicting missing<br>values using a<br>machine learning<br>algorithm<br>(eg. Random Forest)<br>➡️</div>
         </td>
         <td>
             <div class="center"><b>Result</b></div>
@@ -1581,7 +1581,7 @@ When to use:
             </table>
         </td>
         <td>
-            <div class="center">Something</b><br>➡️</div>
+            <div class="center"><br><br>Reconstructing missing<br>values using a<br>Denoising Autoencoder<br>➡️</div>
         </td>
         <td>
             <div class="center"><b>Result</b></div>
