@@ -1837,6 +1837,65 @@ When to use:
 
 ## Summary
 
+=== "Hide code"
+
+=== "Show code"
+
+    ```python {.py .python linenums="1" title="Comparing all methods"}
+    # Create a summary dataframe with all the scores
+    scores_summary = pd.DataFrame(
+        {
+            "Method": [
+                "Random Distribution",
+                "Feed-Forward",
+                "Imputation (Mean)",
+                "Interpolation",
+                "ARIMA Forecasting",
+                "ML (One at Time)",
+                "ML (All at Once)",
+                "Autoencoder Embedding",
+            ],
+            "MAPE": [
+                score_random,
+                score_ffill,
+                score_stats,
+                score_interpolation,
+                score_forecast,
+                score_algorithmic_1,
+                score_algorithmic_2,
+                score_embedding,
+            ],
+        }
+    )
+
+    # Create a bar plot comparing all methods
+    fig = (
+        px.bar(
+            scores_summary,
+            x="Method",
+            y="MAPE",
+            title="Missing Data Handling Methods Comparison",
+            labels={"MAPE": "Mean Absolute<br>Percentage Error (%)", "Method": "Filling Method"},
+            color="MAPE",
+            color_continuous_scale="RdYlGn_r",
+            text="MAPE",
+        )
+        .update_traces(texttemplate="%{text:.2f}%", textposition="outside")
+        .update_layout(
+            xaxis_tickangle=-45,
+            showlegend=False,
+            yaxis_range=[0, max(scores_summary["MAPE"]) * 1.1],
+            title=dict(x=0.5, xanchor="center"),
+            height=600,
+        )
+    )
+
+    fig.write_html("./images/08_missing_data_handling_methods_comparison.html", include_plotlyjs="cdn")
+    fig.show()
+    ```
+
+--8<-- "https://raw.githubusercontent.com/data-science-extensions/dse-guides/add-handling-missing-data/docs/handling-missing-data/images/08_missing_data_handling_methods_comparison.html"
+
 
 [^munchhausen-trilemma]: The Münchhausen trilemma asserts that there are only three ways of completing a proof; by circular argument, regressive argument, and dogmatic argument. Baron Münchhausen proposed a thought experiment where he tried to prove it was theoretically possible to free himself out of being stuck in the mud by pulling himself out with his own hair.
 
