@@ -31,7 +31,9 @@
 
 ## Introduction
 
-TODO
+Missing data is an almost universal challenge in real-world Data Science, yet its impact is particularly acute in the context of time series analysis. In a temporal sequence, every observation is bound to its neighbours; meaning a single gap can disrupt seasonal patterns, invalidate trend calculations, and degrade the performance of forecasting models. Simply ignoring these gaps or applying a one-size-fits-all solution often introduces systematic bias that can skew entire business decisions.
+
+This guide provides a structured framework for navigating the complexities of missingness. We begin by diagnosing the underlying mechanisms categorising data loss (such as 'Missing Completely at Random', 'Missing at Random', and 'Missing Not at Random'), before exploring the fundamental difference between interpolating within known bounds and extrapolating into the unknown. We then move beyond theory to demonstrate a wide range of practical handling techniques, from basic statistical imputation to sophisticated machine learning models, ensuring you have the right strategy for every scenario.
 
 
 ## **Part 1:** Causes / Reasons
