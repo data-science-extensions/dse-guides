@@ -1,0 +1,31 @@
+[project]
+name = "dse-guides"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = "==3.14.*"
+dependencies = [
+    "docstring-inheritance==2.*",
+    "livereload==2.*",
+    "mike==2.*",
+    "mkdocs==1.*",
+    "mkdocs-autorefs==1.*",
+    "mkdocs-coverage==2.*",
+    "mkdocs-material==9.*",
+    "mkdocstrings==0.*",
+    "mkdocstrings-python==1.*",
+    "jupytext==1.*",  # <-- Used to convert notebooks to markdown
+]
+
+[dependency-groups]
+dev = [
+    "black==25.*",
+    "blacken-docs==1.*",
+    "codespell==2.*",
+    "ipykernel==7.*",
+    "isort==7.*",
+    "pre-commit==4.*",
+    "pycln==2.*",
+    "pylint==4.*",
+    "pyupgrade==3.*",
+]
