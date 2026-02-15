@@ -1832,6 +1832,172 @@ When to use:
     )
     ```
 
+    ```python {.py .python linenums="1" title="Filling using autoencoder embedding, with training visualization"}
+    ### Do fill using Autoencoder ----
+    import keras
+    from IPython.display import clear_output
+    from keras.callbacks import (
+        Callback,
+        EarlyStopping,
+        LearningRateScheduler,
+        ReduceLROnPlateau,
+    )
+    from keras.layers import Dense, Dropout, Input, LayerNormalization
+    from keras.models import Sequential
+    from keras.optimizers import SGD, Adam
+    from sklearn.preprocessing import StandardScaler
+
+
+    # Reassign dataframe
+    data_embedding: pd.DataFrame = data.copy().assign(Fill=data["Missing"])
+
+    # Feature Engineering (reuse functions from previous section)
+    tmp_df: pd.DataFrame = (
+        data_embedding.copy()
+        .drop(columns=["index", "Value", "Missing"])
+        .pipe(build_temporal_features)
+        .pipe(build_lag_features, target_col="Fill")
+    )
+
+    # Identify indexes
+    indexes_of_missing: list[int] = data_embedding[data_embedding["Fill"].isna()].index.to_list()
+    indexes_of_existing: list[int] = data_embedding[data_embedding["Fill"].notna()].index.to_list()
+
+    # Prepare Data
+    # Fill NaNs with a placeholder for scaling (though we train on existing)
+    scaler = StandardScaler()
+    tmp_df_filled = tmp_df.fillna(-1)
+    X_scaled = scaler.fit_transform(tmp_df_filled)
+
+    X_train = X_scaled[indexes_of_existing]
+    X_missing = X_scaled[indexes_of_missing]
+
+    # Set seed
+    keras.utils.set_random_seed(RANDOM_SEED)
+
+
+    def warmup(epoch: int, lr: float) -> float:
+        warmup_epochs: int = 10
+        if epoch < warmup_epochs:
+            return lr + (0.001 - lr) / warmup_epochs
+        return lr
+
+
+    class PlottingCallback(Callback):
+
+        def on_epoch_end(self, epoch, logs=None):
+
+            # Clear output
+            clear_output(wait=True)
+
+            # Predict on missing data
+            reconstructed = self.model.predict(X_missing, verbose=0)
+
+            # Inverse Transform
+            reconstructed_original = scaler.inverse_transform(reconstructed)
+
+            # Assign to temporary dataframe for plotting
+            temp_data = data_embedding.copy()
+            fill_col_idx = tmp_df.columns.get_loc("Fill")
+            temp_data.loc[indexes_of_missing, "Fill"] = reconstructed_original[:, fill_col_idx]
+
+            # Calculate score
+            current_score = mape(temp_data["Value"], temp_data["Fill"]) * 100
+
+            # Plot
+            print(f"Epoch: {epoch}, Loss: {logs['loss']:.4f}, MAPE: {current_score:.2f}%")
+            plot_data(
+                data=temp_data,
+                date_col="Date",
+                missing_col="Missing",
+                fill_col="Fill",
+                title=f"Filling using Autoencoder Embedding (Epoch {epoch})",
+                subtitle=f"MAPE={current_score:.2f}%",
+                show_or_return="show",
+            )
+
+
+    # Callbacks
+    lr_warmup = LearningRateScheduler(warmup, verbose=0)
+    lr_reduction = ReduceLROnPlateau(monitor="loss", patience=10, factor=0.25, min_lr=1e-8)
+    early_stopping = EarlyStopping(monitor="loss", patience=10, restore_best_weights=True)
+    plotting_callback = PlottingCallback()
+
+    # Define Model
+    input_dim = X_train.shape[1]
+
+    # Compile
+    autoencoder = Sequential(
+        layers=[
+            # Input
+            Input(shape=(input_dim,), name="input"),
+            # Encoder
+            Dense(units=64, activation="relu"),
+            Dense(units=64, activation="relu"),
+            LayerNormalization(),
+            Dropout(rate=0.2),
+            Dense(units=32, activation="relu"),
+            # Bottleneck
+            Dense(units=16, activation="relu", name="embedding"),
+            # Decoder
+            Dense(units=32, activation="relu"),
+            LayerNormalization(),
+            Dropout(rate=0.2),
+            Dense(units=64, activation="relu"),
+            Dense(units=64, activation="relu"),
+            # Output
+            Dense(units=input_dim, activation="linear", name="output"),
+        ]
+    )
+
+    autoencoder.compile(
+        optimizer=Adam(learning_rate=0.01, beta_1=0.95),
+        loss="mse",
+        # loss="mae",
+    )
+    # autoencoder.compile(
+    #     optimizer=SGD(learning_rate=0.01),
+    #     loss="mae",
+    # )
+
+    # Train
+    autoencoder.fit(
+        X_train,
+        X_train,
+        epochs=1000,
+        verbose=0,
+        shuffle=False,
+        callbacks=[
+            lr_warmup,
+            lr_reduction,
+            # early_stopping,
+            # plotting_callback,
+        ],
+    )
+
+    # Predict
+    reconstructed = autoencoder.predict(X_missing)
+
+    # Inverse Transform
+    reconstructed_original = scaler.inverse_transform(reconstructed)
+
+    # Assign
+    fill_col_idx = tmp_df.columns.get_loc("Fill")
+    data_embedding.loc[indexes_of_missing, "Fill"] = reconstructed_original[:, fill_col_idx]
+
+    ### Plot data ----
+    score_embedding: float = mape(data_embedding["Value"], data_embedding["Fill"]) * 100
+    plot_data(
+        data=data_embedding,
+        date_col="Date",
+        missing_col="Missing",
+        fill_col="Fill",
+        title="Filling using Autoencoder Embedding",
+        subtitle=f"MAPE={score_embedding:.2f}%",
+        output_file="./images/07_filling_using_embedding.html",
+    )
+    ```
+
 --8<-- "https://raw.githubusercontent.com/data-science-extensions/dse-guides/add-handling-missing-data/docs/handling-missing-data/images/07_filling_using_embedding.html"
 
 
