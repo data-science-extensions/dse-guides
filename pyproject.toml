@@ -24,7 +24,7 @@ dev = [
     "codespell==2.*",
     "ipykernel==7.*",
     "isort==7.*",
-    "pre-commit==4.*",
+    "prek==0.*",
     "pycln==2.*",
     "pylint==4.*",
     "pyupgrade==3.*",
