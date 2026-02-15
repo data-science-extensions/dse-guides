@@ -36,6 +36,8 @@ TODO
 
 ## **Part 1:** Causes / Reasons
 
+There are many reasons why data can be missing in a time series data set. Understanding the underlying causes of missing data is crucial for selecting appropriate handling techniques and ensuring the integrity of your analysis.
+
 Here are some common reasons for missing data in time series:
 
 | Reason          | Comment                                                                                     |            Score            |
@@ -421,10 +423,10 @@ Interpolation and extrapolation are techniques used to estimate missing values i
 
 ### Interpolation
 
-- Definition: there is always at least one value somewhere before and at least one somewhere after the missing value
-- Under certain assumptions (e.g. the true but unknown function is continuous or differentiable) it is mathematically proven that the interpolation gets better and better with increasing polynomial degree and density of known nodes (proven to converge)
+!!! observation "Definition"
+    To fill in a missing value, there are known nodes (data points) both left and right of the missing value (example: typical data cleaning situation)
 
-=== "No code"
+Under certain assumptions (e.g. the true but unknown function is continuous or differentiable) it is mathematically proven that the interpolation gets better and better with increasing polynomial degree and density of known nodes (proven to converge)
 
 === "Show code"
 
@@ -539,7 +541,9 @@ Interpolation and extrapolation are techniques used to estimate missing values i
 
 ### Extrapolation
 
-- Definition: there is no other known node left or right of the missing value (example: typical forecast situation)
+!!! observation "Definition"
+    There are known nodes (data points) only on one side of the missing value (example: forecasting future values, backfilling old values, or filling in a gap at the beginning or end of the data)
+
 - In this case it is not guaranteed that we can converge to the truth with more historical information or higher degree
 - In other words extrapolation is "guessing"
 - This is why trend extrapolation in forecasting is always a delicate/shaky thing and requires external assumptions on future trend behaviour
@@ -652,21 +656,15 @@ Interpolation and extrapolation are techniques used to estimate missing values i
 
 ## **Part 3:** Dealing with Missing Data
 
+There are various techniques to handle missing data, each with its own advantages and disadvantages. The choice of technique depends on the specific context of the data and the analysis being performed. Below are some common methods for dealing with missing data.
+
 
 ### Dropping
 
-Advantages:
+!!! observation "Definition"
+    To remove any rows (observations) or columns (features) that contain missing values.
 
-- Easy
-- Does not create 'fake' data
-- Preserves base statistics and correlation between variables
-
-Disadvantages:
-
-- Excessive data loss for multivariate data
-- Can create big gaps in your data
-- Not suitable if you already have a very small data set
-- Can cause sampling bias
+Dropping is a straightforward method for handling missing data, where you simply remove any rows (observations) or columns (features) that contain missing values. This method is easy to implement and does not involve creating 'fake' data, which can be advantageous in certain situations. However, it can lead to excessive data loss, especially in multivariate data sets, and may create big gaps in the data. It is not suitable if you already have a very small data set, as it can further reduce the amount of available data for analysis. Additionally, dropping can cause sampling bias if the missing data is not random.
 
 When to use:
 
@@ -759,6 +757,11 @@ When to use:
 
 ### Recording
 
+!!! observation "Definition"
+    To create new binary features that indicate whether the original value was missing or not.
+
+Recording missing values as binary indicator features is a technique where you create new binary features that indicate whether the original value was missing or not. This method retains the flexibility of the model to fit the missing values and allows you to see the effect of the missing data in the estimated parameters. However, it has some disadvantages, such as assigning the same effect size to all missing values in linear models (e.g., ARIMA) and being not applicable for the target variable.
+
 Advantages:
 
 - Retains the models flexibility for how to fit the missing values
@@ -816,6 +819,9 @@ When to use:
 
 
 ### Filling using Random Distribution
+
+!!! observation "Definition"
+    To fill in missing values using a random distribution, such as a normal distribution, that is created based on the existing data in the specific feature.
 
 Eg. random sample from a normal distribution created for the existing data in the specific feature.
 
@@ -915,6 +921,9 @@ When to use:
 
 ### Filling using Feed-Forward
 
+!!! observation "Definition"
+    To fill in missing values by propagating the last known value forward to fill the gaps.
+
 Eg. take the most recent value, and feed it forward to fill the gaps.
 
 Advantages:
@@ -1000,7 +1009,9 @@ When to use:
 --8<-- "https://raw.githubusercontent.com/data-science-extensions/dse-guides/main/docs/handling-missing-data/images/02_filling_using_feed_forward.html"
 
 
-### Filling using Imputation ($σ$ or $x~$)
+
+!!! observation "Definition"
+    To apply a single value (e.g., mean $\sigma$ or median $\bar{x}$) to fill in missing values for a specific column.
 
 A statistical method of filling missing values which goes ideally beyond plain 'prediction' of the missing values. Imputation tries to preserve ALL statistical properties of the original (unknown) data, including means, variances, etc., including the noise level.
 
@@ -1097,6 +1108,9 @@ When to use:
 
 ### Filling using Interpolation
 
+!!! observation "Definition"
+     To fill in missing values by estimating them based on the known values, often by creating a straight-line between known data points.
+
 Unlike statistical prediction (curve fitting), interpolation is a numerical method to overlay a curve into known variables (nodes) such that the curve hits the known values exactly and approximates what happens in between. This makes sense only if there is a continuous trend between the known nodes. You can use methods such as linear interpolation, polynomial, splines, etc.
 
 The difference between imputation and interpolation is that the latter does not try to preserve the statistical properties of the original data, but rather it is a mathematical approach to estimate the missing values based on the known ones (usually by creating a straight-line between known data points). Interpolation is univariate, meaning it only uses the values of the variable itself to estimate the missing values, without considering other variables, and it assumes continuity in the underlying data. Interpolation is used frequently in time series analysis to fill in gaps in data, especially when the data is expected to follow a certain trend or pattern over time.
@@ -1187,6 +1201,9 @@ When to use:
 
 
 ### Filling using Time-Series Prediction
+
+!!! observation "Definition"
+    To fill in missing values by using a time-series forecasting model to predict the missing values based on the known values.
 
 Eg. run a forecasting algorithm (like ARIMA) to 'predict' the missing future values.
 
@@ -1287,6 +1304,9 @@ When to use:
 
 
 ### Filling using Algorithmic Prediction (Classification & Regression)
+
+!!! observation "Definition"
+    To fill in missing values by using a machine learning model to predict the missing values based on the known values.
 
 Eg. run a prediction algorithm (whether it be a classification or regression problem) over missing data in the predictor features.
 
@@ -1515,6 +1535,9 @@ Classical ML algorithms like Random Forest, XGBoost, or Linear Regression treat 
 
 
 ### Embedding
+
+!!! observation "Definition"
+    To fill in missing values by learning a lower-dimensional representation (embedding) of the data that captures the underlying structure and relationships between features, and then using this representation to reconstruct the missing values.
 
 Embedding methods are primarily used to remove noise and focus on the main information in the data. It can also be used to fill gaps just like de-noising, once the embedding has been identified. Can use generalised models like GLRM (Generalised Low Rank Models), or even autoencoders like MIDAS (Mixed Data Sampling).
 
