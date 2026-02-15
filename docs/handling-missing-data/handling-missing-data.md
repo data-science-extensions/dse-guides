@@ -413,7 +413,7 @@ Before we begin, it is necessary to set up our environment and create a sample d
 
     As you can see with the below plot, the data exhibits a clear seasonal pattern, but there are several missing data points scattered throughout the time series.
 
-    --8<-- "https://raw.githubusercontent.com/data-science-extensions/dse-guides/main/docs/handling-missing-data/images/00_seasonal_data_with_missing.html"
+    --8<-- "https://raw.githubusercontent.com/data-science-extensions/dse-guides/add-handling-missing-data/docs/handling-missing-data/images/00_seasonal_data_with_missing.html"
 
 
 ## **Part 2:** Interpolation / Extrapolation
@@ -538,7 +538,7 @@ Under certain assumptions (e.g. the true but unknown function is continuous or d
     fig.show(editable=True)
     ```
 
---8<-- "https://raw.githubusercontent.com/data-science-extensions/dse-guides/main/docs/handling-missing-data/images/00_interpolation.html"
+--8<-- "https://raw.githubusercontent.com/data-science-extensions/dse-guides/add-handling-missing-data/docs/handling-missing-data/images/00_interpolation.html"
 
 
 ### Extrapolation
@@ -653,7 +653,7 @@ Under certain assumptions (e.g. the true but unknown function is continuous or d
     fig.show(editable=True)
     ```
 
---8<-- "https://raw.githubusercontent.com/data-science-extensions/dse-guides/main/docs/handling-missing-data/images/00_extrapolation.html"
+--8<-- "https://raw.githubusercontent.com/data-science-extensions/dse-guides/add-handling-missing-data/docs/handling-missing-data/images/00_extrapolation.html"
 
 
 ## **Part 3:** Dealing with Missing Data
@@ -918,7 +918,7 @@ When to use:
     )
     ```
 
---8<-- "https://raw.githubusercontent.com/data-science-extensions/dse-guides/main/docs/handling-missing-data/images/01_filling_using_random_distribution.html"
+--8<-- "https://raw.githubusercontent.com/data-science-extensions/dse-guides/add-handling-missing-data/docs/handling-missing-data/images/01_filling_using_random_distribution.html"
 
 
 ### Filling using Feed-Forward
@@ -1008,7 +1008,7 @@ When to use:
     )
     ```
 
---8<-- "https://raw.githubusercontent.com/data-science-extensions/dse-guides/main/docs/handling-missing-data/images/02_filling_using_feed_forward.html"
+--8<-- "https://raw.githubusercontent.com/data-science-extensions/dse-guides/add-handling-missing-data/docs/handling-missing-data/images/02_filling_using_feed_forward.html"
 
 
 ### Filling using Imputation ($\sigma$ or $\bar{x}$)
@@ -1106,7 +1106,7 @@ When to use:
     )
     ```
 
---8<-- "https://raw.githubusercontent.com/data-science-extensions/dse-guides/main/docs/handling-missing-data/images/03_filling_using_imputation.html"
+--8<-- "https://raw.githubusercontent.com/data-science-extensions/dse-guides/add-handling-missing-data/docs/handling-missing-data/images/03_filling_using_imputation.html"
 
 
 ### Filling using Interpolation
@@ -1200,7 +1200,7 @@ When to use:
     )
     ```
 
---8<-- "https://raw.githubusercontent.com/data-science-extensions/dse-guides/main/docs/handling-missing-data/images/04_filling_using_interpolation.html"
+--8<-- "https://raw.githubusercontent.com/data-science-extensions/dse-guides/add-handling-missing-data/docs/handling-missing-data/images/04_filling_using_interpolation.html"
 
 
 ### Filling using Time-Series Prediction
@@ -1303,7 +1303,7 @@ When to use:
     )
     ```
 
---8<-- "https://raw.githubusercontent.com/data-science-extensions/dse-guides/main/docs/handling-missing-data/images/05_filling_using_arima_forecasting.html"
+--8<-- "https://raw.githubusercontent.com/data-science-extensions/dse-guides/add-handling-missing-data/docs/handling-missing-data/images/05_filling_using_arima_forecasting.html"
 
 
 ### Filling using Algorithmic Prediction (Classification & Regression)
@@ -1470,7 +1470,7 @@ Classical ML algorithms like Random Forest, XGBoost, or Linear Regression treat 
     )
     ```
 
---8<-- "https://raw.githubusercontent.com/data-science-extensions/dse-guides/main/docs/handling-missing-data/images/06_filling_using_machine_learning_1.html"
+--8<-- "https://raw.githubusercontent.com/data-science-extensions/dse-guides/add-handling-missing-data/docs/handling-missing-data/images/06_filling_using_machine_learning_1.html"
 
 
 #### All at Once
@@ -1534,7 +1534,7 @@ Classical ML algorithms like Random Forest, XGBoost, or Linear Regression treat 
     )
     ```
 
---8<-- "https://raw.githubusercontent.com/data-science-extensions/dse-guides/main/docs/handling-missing-data/images/06_filling_using_machine_learning_2.html"
+--8<-- "https://raw.githubusercontent.com/data-science-extensions/dse-guides/add-handling-missing-data/docs/handling-missing-data/images/06_filling_using_machine_learning_2.html"
 
 
 ### Embedding
@@ -1693,7 +1693,8 @@ When to use:
     )
     ```
 
---8<-- "https://raw.githubusercontent.com/data-science-extensions/dse-guides/main/docs/handling-missing-data/images/07_filling_using_embedding.html"
+--8<-- "https://raw.githubusercontent.com/data-science-extensions/dse-guides/add-handling-missing-data/docs/handling-missing-data/images/07_filling_using_embedding.html"
+
 
 ## Summary
 
