@@ -213,12 +213,12 @@ Before we begin, it is necessary to set up our environment and create a sample d
 
     For this guide, we will use a number of libraries to show the functionality. The important ones are:
 
-    - [`numpy`][`numpy`] and [`pandas`][`pandas`] for data manipulation
-    - [`synthetic_data_generators`][`synthetic_data_generators`] to create sample time series data
-    - [`plotly`][`plotly`] for visualisation
-    - [`pmdarima`][`pmdarima`] for ARIMA modelling
-    - [`sklearn`][`sklearn`] for machine learning models
-    - [`tqdm`][`tqdm`] for progress bars
+    - [numpy][numpy] and [pandas][pandas] for data manipulation
+    - [synthetic_data_generators][synthetic_data_generators] to create sample time series data
+    - [plotly][plotly] for visualisation
+    - [pmdarima][pmdarima] for ARIMA modelling
+    - [sklearn][sklearn] for machine learning models
+    - [tqdm][tqdm] for progress bars
 
     ```python {.py .python linenums="1" title="Set up"}
     # StdLib Imports
@@ -1700,10 +1700,10 @@ When to use:
 [^munchhausen-trilemma]: The Münchhausen trilemma asserts that there are only three ways of completing a proof; by circular argument, regressive argument, and dogmatic argument. Baron Münchhausen proposed a thought experiment where he tried to prove it was theoretically possible to free himself out of being stuck in the mud by pulling himself out with his own hair.
 
 
-[`numpy`]: https://numpy.org/
-[`pandas`]: https://pandas.pydata.org/
-[`synthetic_data_generators`]: https://data-science-extensions.com/toolboxes/synthetic-data-generators/
-[`plotly`]: https://plotly.com/python/
-[`pmdarima`]: https://alkaline-ml.com/pmdarima/
-[`sklearn`]: https://scikit-learn.org/
-[`tqdm`]: https://tqdm.github.io/
+[numpy]: https://numpy.org/
+[pandas]: https://pandas.pydata.org/
+[synthetic_data_generators]: https://data-science-extensions.com/toolboxes/synthetic-data-generators/
+[plotly]: https://plotly.com/python/
+[pmdarima]: https://alkaline-ml.com/pmdarima/
+[sklearn]: https://scikit-learn.org/
+[tqdm]: https://tqdm.github.io/
