@@ -1011,6 +1011,7 @@ When to use:
 --8<-- "https://raw.githubusercontent.com/data-science-extensions/dse-guides/main/docs/handling-missing-data/images/02_filling_using_feed_forward.html"
 
 
+### Filling using Imputation ($\sigma$ or $\bar{x}$)
 
 !!! observation "Definition"
     To apply a single value (e.g., mean $\sigma$ or median $\bar{x}$) to fill in missing values for a specific column.
