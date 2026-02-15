@@ -668,6 +668,33 @@ There are various techniques to handle missing data, each with its own advantage
 
 Dropping is a straightforward method for handling missing data, where you simply remove any rows (observations) or columns (features) that contain missing values. This method is easy to implement and does not involve creating 'fake' data, which can be advantageous in certain situations. However, it can lead to excessive data loss, especially in multivariate data sets, and may create big gaps in the data. It is not suitable if you already have a very small data set, as it can further reduce the amount of available data for analysis. Additionally, dropping can cause sampling bias if the missing data is not random.
 
+<div class="grid cards">
+
+<ul>
+
+<li>
+<div class="center green"><b>👍 Advantages</b></div>
+<ul>
+<li>Easy</li>
+<li>Does not create 'fake' data</li>
+<li>Preserves base statistics and correlation between variables</li>
+</ul>
+</li>
+
+<li>
+<div class="center red"><b>👎 Disadvantages</b></div>
+<ul>
+<li>Excessive data loss for multivariate data</li>
+<li>Can create big gaps in your data</li>
+<li>Not suitable if you already have a very small data set</li>
+<li>Can cause sampling bias</li>
+</ul>
+</li>
+
+</ul>
+
+</div>
+
 When to use:
 
 - Certain features are missing a large percentage of their data
@@ -764,15 +791,29 @@ When to use:
 
 Recording missing values as binary indicator features is a technique where you create new binary features that indicate whether the original value was missing or not. This method retains the flexibility of the model to fit the missing values and allows you to see the effect of the missing data in the estimated parameters. However, it has some disadvantages, such as assigning the same effect size to all missing values in linear models (e.g., ARIMA) and being not applicable for the target variable.
 
-Advantages:
+<div class="grid cards">
 
-- Retains the models flexibility for how to fit the missing values
-- We can see the effect of the missing data in the estimated parameters
+<ul>
 
-Disadvantages:
+<li>
+<div class="center green"><b>👍 Advantages</b></div>
+<ul>
+<li>Retains the models flexibility for how to fit the missing values</li>
+<li>We can see the effect of the missing data in the estimated parameters</li>
+</ul>
+</li>
 
-- All missing values are assigned the same effect size in linear models (eg. ARIMA)
-- Not applicable for the target variable
+<li>
+<div class="center red"><b>👎 Disadvantages</b></div>
+<ul>
+<li>All missing values are assigned the same effect size in linear models (eg. ARIMA)</li>
+<li>Not applicable for the target variable</li>
+</ul>
+</li>
+
+</ul>
+
+</div>
 
 When to use:
 
@@ -827,16 +868,30 @@ When to use:
 
 Eg. random sample from a normal distribution created for the existing data in the specific feature.
 
-Advantages:
+<div class="grid cards">
 
-- Preserves the base statistics in the data set (mean, variances, etc)
-- Applicable also for target variables
+<ul>
 
-Disadvantages:
+<li>
+<div class="center green"><b>👍 Advantages</b></div>
+<ul>
+<li>Preserves the base statistics in the data set (mean, variances, etc)</li>
+<li>Applicable also for target variables</li>
+</ul>
+</li>
 
-- But also preserves potential filter bias
-- Destroys correlation between variables
-- Model cannot distinguish real and imputed data
+<li>
+<div class="center red"><b>👎 Disadvantages</b></div>
+<ul>
+<li>But also preserves potential filter bias</li>
+<li>Destroys correlation between variables</li>
+<li>Model cannot distinguish real and imputed data</li>
+</ul>
+</li>
+
+</ul>
+
+</div>
 
 When to use:
 
@@ -928,15 +983,29 @@ When to use:
 
 Eg. take the most recent value, and feed it forward to fill the gaps.
 
-Advantages:
+<div class="grid cards">
 
-- Easy
-- Often used as a naïve benchmark because it is super default
+<ul>
 
-Disadvantages:
+<li>
+<div class="center green"><b>👍 Advantages</b></div>
+<ul>
+<li>Easy</li>
+<li>Often used as a naïve benchmark because it is super default</li>
+</ul>
+</li>
 
-- Lacks any deeper logical understanding of the data
-- Does not account for trends or seasonality, etc
+<li>
+<div class="center red"><b>👎 Disadvantages</b></div>
+<ul>
+<li>Lacks any deeper logical understanding of the data</li>
+<li>Does not account for trends or seasonality, etc</li>
+</ul>
+</li>
+
+</ul>
+
+</div>
 
 When to use:
 
@@ -1018,17 +1087,31 @@ When to use:
 
 A statistical method of filling missing values which goes ideally beyond plain 'prediction' of the missing values. Imputation tries to preserve ALL statistical properties of the original (unknown) data, including means, variances, etc., including the noise level.
 
-Advantages:
+<div class="grid cards">
 
-- Easy to calculate and input mean (σ) or median (x~) values
-- Best option to create a filled dataset without any bias for arbitrary statistical analysis later on
+<ul>
 
-Disadvantages:
+<li>
+<div class="center green"><b>👍 Advantages</b></div>
+<ul>
+<li>Easy to calculate and input mean ($\sigma$) or median ($\bar{x}$) values</li>
+<li>Best option to create a filled dataset without any bias for arbitrary statistical analysis later on</li>
+</ul>
+</li>
 
-- Inserted values are not close to the real ones
-- Reduction of sample variance
-- Complicated, no time-series specific solution is available
-- Not very common in machine learning, it is used more in the statistics domain
+<li>
+<div class="center red"><b>👎 Disadvantages</b></div>
+<ul>
+<li>Inserted values are not close to the real ones</li>
+<li>Reduction of sample variance</li>
+<li>Complicated, no time-series specific solution is available</li>
+<li>Not very common in machine learning, it is used more in the statistics domain</li>
+</ul>
+</li>
+
+</ul>
+
+</div>
 
 When to use:
 
@@ -1118,15 +1201,29 @@ Unlike statistical prediction (curve fitting), interpolation is a numerical meth
 
 The difference between imputation and interpolation is that the latter does not try to preserve the statistical properties of the original data, but rather it is a mathematical approach to estimate the missing values based on the known ones (usually by creating a straight-line between known data points). Interpolation is univariate, meaning it only uses the values of the variable itself to estimate the missing values, without considering other variables, and it assumes continuity in the underlying data. Interpolation is used frequently in time series analysis to fill in gaps in data, especially when the data is expected to follow a certain trend or pattern over time.
 
-Advantages:
+<div class="grid cards">
 
-- Follows the local trend
-- Better than feed-forward
+<ul>
 
-Disadvantages:
+<li>
+<div class="center green"><b>👍 Advantages</b></div>
+<ul>
+<li>Follows the local trend</li>
+<li>Better than feed-forward</li>
+</ul>
+</li>
 
-- Approach is univariate (that is, it does not take in to account exogeneous variables, like holiday information, etc)
-- Resembles a trend rather than a seasonality or autocorrelation
+<li>
+<div class="center red"><b>👎 Disadvantages</b></div>
+<ul>
+<li>Approach is univariate (that is, it does not take in to account exogeneous variables, like holiday information, etc)</li>
+<li>Resembles a trend rather than a seasonality or autocorrelation</li>
+</ul>
+</li>
+
+</ul>
+
+</div>
 
 When to use:
 
@@ -1210,17 +1307,31 @@ When to use:
 
 Eg. run a forecasting algorithm (like ARIMA) to 'predict' the missing future values.
 
-Advantages:
+<div class="grid cards">
 
-- Promises a better fit
-- Can better reconstruct non-random missingness
-- Applicable also for target variable
+<ul>
 
-Disadvantages:
+<li>
+<div class="center green"><b>👍 Advantages</b></div>
+<ul>
+<li>Promises a better fit</li>
+<li>Can better reconstruct non-random missingness</li>
+<li>Applicable also for target variable</li>
+</ul>
+</li>
 
-- Only useful if the time series is actually predictable
-- Don't forget the Münchhausen trilemma[^munchhausen-trilemma] of trying to create a forecast from predicted data
-- Predicted values are filled in 'without noise'; that is, without 'variance biase'
+<li>
+<div class="center red"><b>👎 Disadvantages</b></div>
+<ul>
+<li>Only useful if the time series is actually predictable</li>
+<li>Don't forget the Münchhausen trilemma[^munchhausen-trilemma] of trying to create a forecast from predicted data</li>
+<li>Predicted values are filled in 'without noise'; that is, without 'variance biase'</li>
+</ul>
+</li>
+
+</ul>
+
+</div>
 
 When to use:
 
@@ -1313,16 +1424,30 @@ When to use:
 
 Eg. run a prediction algorithm (whether it be a classification or regression problem) over missing data in the predictor features.
 
-Advantages:
+<div class="grid cards">
 
-- Promises a better fit
-- Can better reconstruct non-random missingness
-- Applicable also for target variable
+<ul>
 
-Disadvantages:
+<li>
+<div class="center green"><b>👍 Advantages</b></div>
+<ul>
+<li>Promises a better fit</li>
+<li>Can better reconstruct non-random missingness</li>
+<li>Applicable also for target variable</li>
+</ul>
+</li>
 
-- Münchhausen trilemma[^munchhausen-trilemma] also applies
-- Predicted values are filled in 'without noise'; that is, without 'variance biase'
+<li>
+<div class="center red"><b>👎 Disadvantages</b></div>
+<ul>
+<li>Münchhausen trilemma[^munchhausen-trilemma] also applies</li>
+<li>Predicted values are filled in 'without noise'; that is, without 'variance biase'</li>
+</ul>
+</li>
+
+</ul>
+
+</div>
 
 When to use:
 
@@ -1551,15 +1676,29 @@ In this example, we use a **Denoising Autoencoder** to learn the underlying mani
 3.  **Training**: The model is trained on the complete records to learn the relationships between features.
 4.  **Imputation**: The model predicts (reconstructs) the missing values based on the learned patterns.
 
-Advantages:
+<div class="grid cards">
 
-- Strong for non-trivial, non-linear patterns
-- In particular when combined with multiple imputations
+<ul>
 
-Disadvantages:
+<li>
+<div class="center green"><b>👍 Advantages</b></div>
+<ul>
+<li>Strong for non-trivial, non-linear patterns</li>
+<li>In particular when combined with multiple imputations</li>
+</ul>
+</li>
 
-- Not very established method (compared to others mentioned)
-- Have to use specific packages to implement (e.g., TensorFlow/Keras)
+<li>
+<div class="center red"><b>👎 Disadvantages</b></div>
+<ul>
+<li>Not very established method (compared to others mentioned)</li>
+<li>Have to use specific packages to implement (e.g., TensorFlow/Keras)</li>
+</ul>
+</li>
+
+</ul>
+
+</div>
 
 When to use:
 
