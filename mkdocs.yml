@@ -1,1 +1,147 @@
 site_name: DSE Guides
+site_description: A collection of guides and resources for data science enthusiasts.
+site_author: "[Chris Mahoney](mailto:chris@mahoneyconsultingservices.com)"
+site_dir: web
+docs_dir: docs
+repo_name: dse-guides
+repo_url: https://github.com/data-science-extensions/dse-guides
+edit_uri: edit/main/docs/
+
+nav:
+  # - "Querying Data": querying-data/querying-data.md
+  - "Handling Missing Data": handling-missing-data/handling-missing-data.md
+
+exclude_docs: |
+  handling-missing-data/README.md
+  handling-missing-data/notebooks/handling-missing-data-r.md
+  querying-data/README.md
+  querying-data/querying-data.md
+  querying-data/notebooks/querying-data-pandas-r.md
+  querying-data/notebooks/querying-data-pandas.md
+  querying-data/notebooks/querying-data-polars-r.md
+  querying-data/notebooks/querying-data-polars.md
+  querying-data/notebooks/querying-data-pyspark-r.md
+  querying-data/notebooks/querying-data-pyspark.md
+  querying-data/notebooks/querying-data-r.md
+  querying-data/notebooks/querying-data-sql-r.md
+  querying-data/notebooks/querying-data-sql.md
+
+watch:
+  - docs/
+  - README.md
+
+theme:
+  name: material
+  font:
+    code: Consolas, 'Courier New', monospace
+  custom_dir: docs/overrides
+  palette:
+    primary: blue grey
+    accent: indigo
+  features:
+    - navigation.tabs
+    - navigation.tabs.sticky
+    - navigation.sections
+    - navigation.expand
+    - navigation.indexes
+    - navigation.top
+    - navigation.instant
+    - search.highlight
+    - search.suggest
+    - toc.follow
+    - content.action.edit
+    - content.action.view
+    - content.code.copy
+    - content.code.annotate
+    - content.tabs.link
+  icon:
+    repo: material/github
+    edit: material/file-edit-outline
+    view: material/file-eye-outline
+
+markdown_extensions:
+  - admonition
+  - meta
+  - attr_list
+  - md_in_html
+  - footnotes
+  - toc:
+      permalink: "🔗"
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+      options:
+        custom_icons:
+          - overrides/.icons
+  - pymdownx.magiclink
+  - pymdownx.details
+  - pymdownx.critic
+  - pymdownx.superfences
+  - pymdownx.progressbar
+  - pymdownx.highlight
+  - pymdownx.inlinehilite
+  - pymdownx.snippets:
+      # check_paths: true
+      check_paths: false
+      url_download: true
+      dedent_subsections: true
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  - pymdownx.arithmatex:
+      generic: true
+
+extra:
+  version:
+    provider: mike
+    default: latest
+
+extra_css:
+  - assets/css/style.css
+  - assets/css/admonitions.css
+  - assets/css/code_chunks.css
+  - assets/css/columns.css
+  - https://site-assets.fontawesome.com/releases/v6.4.2/css/all.css
+  - https://unpkg.com/katex@0/dist/katex.min.css
+
+extra_javascript:
+  - https://unpkg.com/katex@0/dist/katex.min.js
+  - https://unpkg.com/katex@0/dist/contrib/auto-render.min.js
+  - assets/js/katex.js
+
+plugins:
+  - search:
+      lang: en
+  - autorefs
+  - mike:
+      version_selector: true
+      alias_type: copy
+  - mkdocstrings:
+      default_handler: python
+      handlers:
+        python:
+          paths:
+            - src
+          options:
+            # extensions:
+            #   - griffe_inherited_docstrings
+            #   - docstring_inheritance.griffe
+            allow_inspection: true
+            docstring_style: google
+            show_root_heading: true
+            show_root_toc_entry: false
+            show_root_full_path: true
+            show_source: true
+            show_object_full_path: false
+            separate_signature: true
+            show_signature_annotations: true
+            show_symbol_type_heading: true
+            show_symbol_type_toc: true
+            show_category_heading: true
+            show_if_no_docstring: true
+            heading_level: 3
+            members_order: source
+            group_by_category: false
+            filters:
+              - "!^__all__"
